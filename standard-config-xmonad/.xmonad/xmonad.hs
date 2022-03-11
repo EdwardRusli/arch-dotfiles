@@ -16,8 +16,8 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Grid
 myTerminal     = "alacritty"
---myBorderWidth  = 5
-myBorderWidth  = 0
+--myBorderWidth  = 4
+myBorderWidth  = 2
 myModMask      = mod4Mask
 
 -- Startup Commands
@@ -28,7 +28,7 @@ myStartupHook  = do
 
 -- Layouts
 --myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
-myLayout = avoidStruts (tiled ||| Full ||| grid)
+myLayout = avoidStruts (tiled ||| grid ||| Full)
     where
         tiled = spacingWithEdge 5 $ ResizableTall 1 (3/100) (1/2)[]
         grid = spacingWithEdge 5 $ Grid
@@ -84,6 +84,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Expand the master area
     , ((modm,               xK_l     ), sendMessage Expand)
 
+
+    , ((modm .|. shiftMask, xK_h     ), sendMessage MirrorShrink    )
+ 
+
+    , ((modm .|. shiftMask, xK_l     ), sendMessage MirrorExpand    )
+
     -- Push window back into tiling
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)
 
@@ -124,6 +130,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
         | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
+myNormalBorderColor  = "#333333"
+myFocusedBorderColor = "#bd93f9"
+--myFocusedBorderColor = "#ff0000"
+
+
+
+
 
 main = do
     xmonad $ docks defaults
@@ -131,7 +144,8 @@ defaults = def {
         terminal    = myTerminal,
         modMask     = myModMask,
         borderWidth = myBorderWidth,
-
+        normalBorderColor  = myNormalBorderColor,
+        focusedBorderColor = myFocusedBorderColor,
         keys        = myKeys,
 
         startupHook = myStartupHook,
