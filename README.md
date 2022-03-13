@@ -21,7 +21,7 @@ My config files for window managers.<br>
   - rofi
   - imagemagick
   - zsh
-    (with plugins:)
+    (with plugins)
     - zsh-autosuggestions
     - zsh-syntax-highlighting
   - oh-my-zsh
