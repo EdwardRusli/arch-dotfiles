@@ -24,4 +24,5 @@ My config files for window managers.<br>
     (with plugins)
     - zsh-autosuggestions
     - zsh-syntax-highlighting
+  - powerline font
   - oh-my-zsh
