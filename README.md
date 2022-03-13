@@ -19,5 +19,9 @@ My config files for window managers.<br>
   - nitrogen
   - picom
   - rofi
+  - imagemagick
   - zsh
+    (with plugins:
+    - zsh-autosuggestions
+    - zsh-syntax-highlighting
   - oh-my-zsh
