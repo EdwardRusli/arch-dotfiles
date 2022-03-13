@@ -19,3 +19,5 @@ My config files for window managers.<br>
   - nitrogen
   - picom
   - rofi
+  - zsh
+  - oh-my-zsh
