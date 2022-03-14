@@ -1,9 +1,10 @@
 Config { 
 
    -- appearance
-     font =         "xft:Bitstream Vera Sans Mono:size=9:bold:antialias=true"
-   , bgColor =      "black"
-   , fgColor =      "#646464"
+     font =         "xft:Hack:size=11:bold:antialias=true"
+   , additionalFonts = ["xft:Hack Nerd Font:size=11:antialias=true"]
+   , bgColor =      "#282a36"
+   , fgColor =      "#f8f8f2"
    , position =     Top
    , border =       BottomB
    , borderColor =  "#646464"
@@ -11,7 +12,7 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = "%battery% | %multicpu% | %coretemp% | %memory% | %dynnetwork% }{ %RJTT% | %date% || %kbd% "
+   , template = "}{ <fc=#50fa7b>%multicpu%</fc> | <fc=#ffb86c>%coretemp%</fc> | <fc=#ff79c6>%memory%</fc> | <fc=#bd93f9>%dynnetwork%</fc> | <fc=#8be9fd>%date%</fc> "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -19,7 +20,7 @@ Config {
    , allDesktops =      True    -- show on all desktops
    , overrideRedirect = True    -- set the Override Redirect flag (Xlib)
    , pickBroadest =     False   -- choose widest display (multi-monitor)
-   , persistent =       False    -- enable/disable hiding (True = disabled)
+   , persistent =       True    -- enable/disable hiding (True = disabled)
 
    -- plugins
    --   Numbers can be automatically colored according to their value. xmobar
@@ -42,48 +43,48 @@ Config {
                              ] 36000
 
         -- network activity monitor (dynamic interface resolution)
-        , Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
-                             , "--Low"      , "1000"       -- units: B/s
-                             , "--High"     , "5000"       -- units: B/s
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
+        , Run DynNetwork     [ "--template" , "Download: <rx>kB/s <fn=1>\xf6d9</fn> <fc=#f8f8f2>|</fc> Upload: <tx>kB/s <fn=1>\xfa51</fn>"
+                             --, "--Low"      , "1000"       -- units: B/s
+                             , "--High"     , "500000"       -- units: B/s
+                             --, "--low"      , "green"
+                             --, "--normal"   , "orange"
+                             , "--high"     , "red"
                              ] 10
 
         -- cpu activity monitor
-        , Run MultiCpu       [ "--template" , "Cpu: <total0>%|<total1>%"
-                             , "--Low"      , "50"         -- units: %
+        , Run MultiCpu       [ "--template" , "<fn=1>\xf2db</fn> CPU: <total0>% <total1>% <total2>% <total3>%"
+                             --, "--Low"      , "50"         -- units: %
                              , "--High"     , "85"         -- units: %
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
+                             --, "--low"      , "green"
+                             --, "--normal"   , "orange"
+                             , "--high"     , "red"
                              ] 10
 
         -- cpu core temperature monitor
-        , Run CoreTemp       [ "--template" , "Temp: <core0>°C|<core1>°C"
-                             , "--Low"      , "70"        -- units: °C
+        , Run CoreTemp       [ "--template" , "<fn=1>\xf2c7</fn> CPU Temp: <core0>°C <core1>°C <core2>°C <core3>°C"
+                             --, "--Low"      , "70"        -- units: °C
                              , "--High"     , "80"        -- units: °C
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
+                             --, "--low"      , "green"
+                             --, "--normal"   , "orange"
+                             , "--high"     , "red"
                              ] 50
                           
         -- memory usage monitor
-        , Run Memory         [ "--template" ,"Mem: <usedratio>%"
-                             , "--Low"      , "20"        -- units: %
+        , Run Memory         [ "--template" ,"<fn=1>\xf85a</fn> Memory: <usedratio>%"
+                             --, "--Low"      , "20"        -- units: %
                              , "--High"     , "90"        -- units: %
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
+                             --, "--low"      , "green"
+                             --, "--normal"   , "orange"
+                             , "--high"     , "red"
                              ] 10
 
         -- battery monitor
         , Run Battery        [ "--template" , "Batt: <acstatus>"
                              , "--Low"      , "10"        -- units: %
                              , "--High"     , "80"        -- units: %
-                             , "--low"      , "darkred"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkgreen"
+                             , "--low"      , "red"
+                             , "--normal"   , "orange"
+                             , "--high"     , "green"
 
                              , "--" -- battery specific options
                                        -- discharging status
@@ -96,7 +97,7 @@ Config {
 
         -- time and date indicator 
         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
-        , Run Date           "<fc=#ABABAB>%F (%a) %T</fc>" "date" 10
+        , Run Date           "<fn=1>\xf5ed</fn> <fc=#8be9fd>%a %F %T</fc>" "date" 10
 
         -- keyboard layout indicator
         , Run Kbd            [ ("us(dvorak)" , "<fc=#00008B>DV</fc>")
