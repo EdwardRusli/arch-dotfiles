@@ -31,3 +31,8 @@ My config files for window managers.<br>
     - Hack Nerd font
   - oh-my-zsh
   - shell-color-scripts
+- flex.sh:
+  - pipes.sh
+  - unimatrix
+  - cava
+  - htop
