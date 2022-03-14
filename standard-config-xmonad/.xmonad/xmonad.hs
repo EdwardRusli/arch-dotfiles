@@ -25,6 +25,7 @@ myStartupHook  = do
     spawnOnce "nitrogen --restore &"
     spawnOnce "picom &"
     spawnOnce "xmobar"
+    spawnOnce "greenclip daemon"
 
 -- Layouts
 --myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
