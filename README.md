@@ -20,7 +20,7 @@ My config files for window managers.<br>
   - picom
   - rofi
   - greenclip
-  - imagemagick
+  - flameshot
   - zsh
     (with plugins)
     - zsh-autosuggestions

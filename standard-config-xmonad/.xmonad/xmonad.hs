@@ -45,7 +45,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_p     ), spawn "rofi -show run")
 
     -- launch imagemagick clipboard mode
-    , ((modm,               xK_Print     ), spawn "import - | convert - png:- | xclip -selection clipboard -target image/png -i")
+    , ((modm,               xK_Print     ), spawn "flameshot gui")
 
     --launch rofi greenclip
     , ((modm,               xK_v     ), spawn "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'")
