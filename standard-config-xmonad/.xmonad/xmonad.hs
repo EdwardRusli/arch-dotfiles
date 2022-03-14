@@ -11,6 +11,7 @@ import XMonad.Util.Run
 
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.DynamicLog
 
 import XMonad.Layout.Spacing
 import XMonad.Layout.ResizableTile
@@ -138,7 +139,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 myNormalBorderColor  = "#333333"
-myFocusedBorderColor = "#bd93f9"
+--myFocusedBorderColor = "#bd93f9"
+myFocusedBorderColor = "#f8f8f2"
 --myFocusedBorderColor = "#ff0000"
 
 
@@ -146,17 +148,25 @@ myFocusedBorderColor = "#bd93f9"
 
 
 main = do
-    xmonad $ docks defaults
-defaults = def {
-        terminal    = myTerminal,
-        modMask     = myModMask,
-        borderWidth = myBorderWidth,
-        normalBorderColor  = myNormalBorderColor,
-        focusedBorderColor = myFocusedBorderColor,
-        keys        = myKeys,
+    xmproc0 <- spawnPipe ("xmobar")
+    xmonad $ docks def {
+          terminal    = myTerminal
+        , modMask     = myModMask
+        , borderWidth = myBorderWidth
+        , normalBorderColor  = myNormalBorderColor
+        , focusedBorderColor = myFocusedBorderColor
+        , keys        = myKeys
 
-        startupHook = myStartupHook,
-        layoutHook  = myLayout,
-        handleEventHook = fullscreenEventHook
+        , startupHook = myStartupHook
+        , layoutHook  = myLayout
+        , handleEventHook = fullscreenEventHook
+         , logHook     = dynamicLogWithPP $ xmobarPP
+            {
+                ppOutput = hPutStrLn xmproc0
+               ,ppCurrent = xmobarColor "#50fa7b" "" . wrap "[" "]"
+               ,ppHidden = xmobarColor "#6272a4" ""
+               ,ppTitle  = xmobarColor "#f8f8f2" "" . shorten 120
+               ,ppOrder  = \(ws:_:t:_) -> [ws,t]
+            }
     }
 
