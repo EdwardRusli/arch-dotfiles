@@ -24,15 +24,20 @@ My config files for window managers.<br>
   - zsh
     (with plugins)
     - zsh-autosuggestions
+      - git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     - zsh-syntax-highlighting
+      - git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
   - Fonts:
     - powerline font
     - Hack font
     - Hack Nerd font
   - oh-my-zsh
+    - sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   - shell-color-scripts
 - flex.sh:
   - pipes.sh
   - unimatrix
   - cava
   - htop
+#### Useful Apps
+  - lxappearance (GTK theme manager)
