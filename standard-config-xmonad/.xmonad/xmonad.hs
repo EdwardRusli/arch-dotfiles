@@ -18,7 +18,7 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.Grid
 myTerminal     = "alacritty"
 --myBorderWidth  = 4
-myBorderWidth  = 2
+myBorderWidth  = 0
 myModMask      = mod4Mask
 
 -- Startup Commands
