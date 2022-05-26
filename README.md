@@ -19,25 +19,20 @@ My config files for window managers.<br>
   - nitrogen
   - picom
   - rofi
-  - greenclip
+  - greenclip (aur)
   - flameshot
-  - zsh
-    (with plugins)
-    - zsh-autosuggestions
-      - git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    - zsh-syntax-highlighting
-      - git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  - fish
   - Fonts:
     - powerline font
+      - https://github.com/powerline/fonts
     - Hack font
+      - ttf-hack
     - Hack Nerd font
-  - oh-my-zsh
-    - sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  - shell-color-scripts
+  - shell-color-scripts (aur)
 - flex.sh:
-  - pipes.sh
-  - unimatrix
-  - cava
+  - pipes.sh (aur)
+  - unimatrix (aur)
+  - cava (aur) 
   - htop
 #### Useful Apps
   - lxappearance (GTK theme manager)
