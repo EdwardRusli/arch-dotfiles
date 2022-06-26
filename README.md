@@ -22,6 +22,9 @@ My config files for window managers.<br>
   - greenclip (aur)
   - flameshot
   - fish
+    - Optional:
+    - oh-my-fish
+    - pie theme from omf
   - Fonts:
     - powerline font
       - https://github.com/powerline/fonts
