@@ -21,6 +21,7 @@ My config files for window managers.<br>
   - rofi
   - greenclip (aur)
   - flameshot
+  - arc-gtk-theme
   - fish
     - Optional:
     - oh-my-fish
