@@ -22,6 +22,7 @@ My config files for window managers.<br>
   - greenclip (aur)
   - flameshot
   - arc-gtk-theme
+  - papirus-icon-theme
   - fish
     - Optional:
     - oh-my-fish
