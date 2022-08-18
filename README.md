@@ -19,6 +19,9 @@ My config files for window managers.<br>
   - nitrogen
   - picom
   - rofi
+  - pactl
+  - brightnessctl
+  - pamixer
   - greenclip (aur)
   - flameshot
   - arc-gtk-theme
