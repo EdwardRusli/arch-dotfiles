@@ -16,6 +16,26 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Layout.Spacing
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Grid
+
+color00 = "#071222"
+color01 = "#424d57"
+color02 = "#e7edef"
+color03 = "#6272a4"
+color04 = "#8be9fd"
+color05 = "#3a91ee"
+color06 = "#3e607e"
+
+--color06 = "#ffb86c"
+--color07 = "#ff79c6"
+--color08 = "#bd93f9"
+--color09 = "#ff5555"
+--color10 = "#f1fa8c"
+
+
+
+
+
+
 myTerminal     = "alacritty"
 --myBorderWidth  = 4
 myBorderWidth  = 0
@@ -27,13 +47,14 @@ myStartupHook  = do
     spawnOnce "picom &"
     spawnOnce "xmobar"
     spawnOnce "greenclip daemon"
+    spawnOnce "xinput set-prop 9 'Coordinate Transformation Matrix' 0.23 0 0 0 0.23 0 0 0 1"
 
 -- Layouts
 --myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
 myLayout = avoidStruts (tiled ||| grid ||| Full)
     where
-        tiled = spacingWithEdge 5 $ ResizableTall 1 (3/100) (1/2)[]
-        grid = spacingWithEdge 5 $ Grid
+        tiled = spacingRaw True (Border 5 5 5 5) True (Border 5 5 5 5) True $ ResizableTall 1 (3/100) (1/2)[]
+        grid = spacingRaw True (Border 5 5 5 5) True (Border 5 5 5 5) True $ Grid
 
 -- Keybindings
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
@@ -52,6 +73,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- launch gmrun
     , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
+
+    , ((0                     , 0x1008FF11), spawn "pactl set-sink-volume 0 -5%")
+    , ((0                     , 0x1008FF13), spawn "pactl set-sink-volume 0 +5%")
+    , ((0                     , 0x1008FF12), spawn "pactl set-sink-mute 0 toggle")
+    , ((0                     , 0x1008FF02), spawn "brightnessctl set 50+")
+    , ((0                     , 0x1008FF03), spawn "brightnessctl set 50-")
+    
 
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
@@ -140,7 +168,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
 myNormalBorderColor  = "#333333"
 --myFocusedBorderColor = "#bd93f9"
-myFocusedBorderColor = "#f8f8f2"
+myFocusedBorderColor = color01
 --myFocusedBorderColor = "#ff0000"
 
 
@@ -163,9 +191,10 @@ main = do
          , logHook     = dynamicLogWithPP $ xmobarPP
             {
                 ppOutput = hPutStrLn xmproc0
-               ,ppCurrent = xmobarColor "#50fa7b" "" . wrap "[" "]"
-               ,ppHidden = xmobarColor "#6272a4" ""
-               ,ppTitle  = xmobarColor "#f8f8f2" "" . shorten 120
+               ,ppCurrent = xmobarColor color02 "" . wrap ("<box type=Bottom width=2 mb=2 color=" ++ color05 ++ ">") "</box>" 
+               ,ppHidden = xmobarColor color01 ""
+               ,ppTitle  = xmobarColor color02 "" . shorten 120
+               ,ppSep =  "<fc=" ++ color02 ++ "> <fn=1>|</fn> </fc>"               
                ,ppOrder  = \(ws:_:t:_) -> [ws,t]
             }
     }

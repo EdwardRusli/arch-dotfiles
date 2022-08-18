@@ -1,18 +1,17 @@
 Config { 
-
    -- appearance
-     font =         "xft:Hack:size=11:bold:antialias=true"
+   font =         "xft:Hack:size=10:bold:antialias=true"
    , additionalFonts = ["xft:Hack Nerd Font:size=11:antialias=true"]
-   , bgColor =      "#282a36"
-   , fgColor =      "#f8f8f2"
+   , bgColor = "#071222"
+   , fgColor = "#e7edef"
    , position =     Top
-   , border =       BottomB
-   , borderColor =  "#646464"
+   -- , border =       BottomB
+   -- , borderColor =  "#646464"
 
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " Workspace %StdinReader% }{ <fc=#ff5555>%multicpu%</fc> | <fc=#ffb86c>%coretemp%</fc> | <fc=#f1fa8c>%memory%</fc> | <fc=#50fa7b>%dynnetwork%</fc> | <fc=#8be9fd>%date%</fc> "
+   , template = " Workspace %StdinReader% }{<fc=#3a91ee>%multicpu%</fc><fc=#3a91ee>%coretemp%</fc><fc=#3a91ee>%memory%</fc><fc=#3a91ee>%dynnetwork%</fc><fc=#3a91ee>%battery%</fc> <fc=#3a91ee>%mybright%</fc>  <fc=#3a91ee>%myvolume%</fc> <fc=#3a91ee>%date%</fc>"
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -38,34 +37,49 @@ Config {
    --   see http://projects.haskell.org/xmobar/#system-monitor-plugins.
    , commands = 
         [ 
+          -- 
+          --volume
+          --Run Com "/bin/bash" ["-c", "pamixer --get-volume"] "myvolume" 1
+        Run Com "/bin/bash" ["-c", "echo '<fn=1>\xf028</fn>' `(pamixer --get-volume)`'%'"] "myvolume" 1
 
+          --brightness
+	   , Run Com "/bin/bash" ["-c", "echo '<fn=1>\xf5df</fn>' `(brightnessctl get)`"] "mybright" 1
+        
         -- network activity monitor (dynamic interface resolution)
-          Run DynNetwork     [ "--template" , "Download: <rx>kB/s <fn=1>\xf6d9</fn> <fc=#f8f8f2>|</fc> Upload: <tx>kB/s <fn=1>\xfa51</fn>"
+        , Run DynNetwork     [ "--template" , " <fn=1>\xf6d9</fn> <rx>kB/s  <fn=1>\xfa51</fn> <tx>kB/s "
                              , "--High"     , "500000"       -- units: B/s
                              , "--high"     , "red"
                              ] 10
 
         -- cpu activity monitor
-        , Run MultiCpu       [ "--template" , "<fn=1>\xf2db</fn> CPU: <total0>% <total1>% <total2>% <total3>%"
+        , Run MultiCpu       [ "--template" , " <fn=1>\xf2db</fn> <total0>% "
                              , "--High"     , "85"         -- units: %
                              , "--high"     , "red"
                              ] 10
 
         -- cpu core temperature monitor
-        , Run CoreTemp       [ "--template" , "<fn=1>\xf2c7</fn> CPU Temp: <core0>°C <core1>°C <core2>°C <core3>°C"
+        , Run CoreTemp       [ "--template" , " <fn=1>\xf2c7</fn> <core0>°C "
                              , "--High"     , "80"        -- units: °C
                              , "--high"     , "red"
                              ] 50
                           
         -- memory usage monitor
-        , Run Memory         [ "--template" ,"<fn=1>\xf85a</fn> Memory: <usedratio>%"
+        , Run Memory         [ "--template" ," <fn=1>\xf85a</fn> <usedratio>% "
                              , "--High"     , "90"        -- units: %
                              , "--high"     , "red"
                              ] 10
+	
+	   , Run Battery        [ "--template" ," <acstatus> "
+			     , "--"
+				, "-o"      ,"<fn=1>\xf578</fn> <left>%"
+				, "-O"      ,"<fn=1>\xf583</fn> <left>%"
+				, "-i"      ,"<fn=1>\xf583</fn> <left>%"
+
+			     ] 50
 
         -- time and date indicator 
         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
-        , Run Date           "<fn=1>\xf5ed</fn> <fc=#8be9fd>%a %F %T</fc>" "date" 10
+        , Run Date           " <fn=1>\xf017</fn> <fc=#3a91ee>%T</fc> " "date" 10
 
         , Run StdinReader
         ]
