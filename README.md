@@ -1,4 +1,4 @@
-# config-files
+# arch-dotfiles
 My config files for window managers, written from scratch<br>
 #### Instructions
 1. Download the preferred config files
