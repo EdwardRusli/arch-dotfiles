@@ -1,0 +1,86 @@
+Config { 
+   -- appearance
+   font =         "xft:Hack:size=10:bold:antialias=true"
+   , additionalFonts = ["xft:Hack Nerd Font:size=11:antialias=true"]
+   , bgColor = "#2D2A2E"
+   , fgColor = "#FCFCFA"
+   , position =     Top
+   -- , border =       BottomB
+   -- , borderColor =  "#646464"
+
+   -- layout
+   , sepChar =  "%"   -- delineator between plugin names and straight text
+   , alignSep = "}{"  -- separator between left-right alignment
+   , template = " Workspace %StdinReader% }{<fc=#FF6188>cpu %multicpu%</fc> <fc=#565457>|</fc> <fc=#A9DC76>temp %coretemp%</fc> <fc=#565457>|</fc> <fc=#FC9867>mem %memory%</fc> <fc=#565457>|</fc> <fc=#FFD866>down %dynnetwork%</fc> <fc=#565457>|</fc> <fc=#AB9DF2>batt %battery%</fc> <fc=#565457>|</fc> <fc=#78e8bc>bright %mybright%</fc> <fc=#565457>|</fc> <fc=#FF6188>vol %myvolume%</fc> <fc=#565457>|</fc> <fc=#78DCE8>%date%</fc> "
+
+   -- general behavior
+   , lowerOnStart =     True    -- send to bottom of window stack on start
+   , hideOnStart =      False   -- start with window unmapped (hidden)
+   , allDesktops =      True    -- show on all desktops
+   , overrideRedirect = True    -- set the Override Redirect flag (Xlib)
+   , pickBroadest =     False   -- choose widest display (multi-monitor)
+   , persistent =       True    -- enable/disable hiding (True = disabled)
+
+   -- plugins
+   --   Numbers can be automatically colored according to their value. xmobar
+   --   decides color based on a three-tier/two-cutoff system, controlled by
+   --   command options:
+   --     --Low sets the low cutoff
+   --     --High sets the high cutoff
+   --
+   --     --low sets the color below --Low cutoff
+   --     --normal sets the color between --Low and --High cutoffs
+   --     --High sets the color above --High cutoff
+   --
+   --   The --template option controls how the plugin is displayed. Text
+   --   color can be set by enclosing in <fc></fc> tags. For more details
+   --   see http://projects.haskell.org/xmobar/#system-monitor-plugins.
+   , commands = 
+        [ 
+          -- 
+          --volume
+          --Run Com "/bin/bash" ["-c", "pamixer --get-volume"] "myvolume" 1
+        Run Com "/bin/bash" ["-c", "echo '<fn=1>\xf028</fn>' `(pamixer --get-volume)`'%'"] "myvolume" 1
+
+          --brightness
+	   , Run Com "/bin/bash" ["-c", "echo '<fn=1>\xf5df</fn>' `(brightnessctl get)`"] "mybright" 1
+        
+        -- network activity monitor (dynamic interface resolution)
+        , Run DynNetwork     [ "--template" , "<fn=1>\xf6d9</fn> <rx>kB/s"
+                             , "--High"     , "500000"       -- units: B/s
+                             , "--high"     , "red"
+                             ] 10
+
+        -- cpu activity monitor
+        , Run MultiCpu       [ "--template" , "<fn=1>\xf2db</fn> <total0>%"
+                             , "--High"     , "85"         -- units: %
+                             , "--high"     , "red"
+                             ] 10
+
+        -- cpu core temperature monitor
+        , Run CoreTemp       [ "--template" , "<fn=1>\xf2c7</fn> <core0>°C"
+                             , "--High"     , "80"        -- units: °C
+                             , "--high"     , "red"
+                             ] 50
+                          
+        -- memory usage monitor
+        , Run Memory         [ "--template" ,"<fn=1>\xf85a</fn> <usedratio>%"
+                             , "--High"     , "90"        -- units: %
+                             , "--high"     , "red"
+                             ] 10
+	
+	   , Run Battery        [ "--template" ,"<acstatus>"
+			     , "--"
+				, "-o"      ,"<fn=1>\xf578</fn> <left>%"
+				, "-O"      ,"<fn=1>\xf583</fn> <left>%"
+				, "-i"      ,"<fn=1>\xf583</fn> <left>%"
+
+			     ] 50
+
+        -- time and date indicator 
+        --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
+        , Run Date           "<fn=1>\xf017</fn> <fc=#78DCE8>%T</fc>" "date" 10
+
+        , Run StdinReader
+        ]
+   }
